@@ -14,15 +14,22 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  background-image: url('../public/background1.jpg');
+  background-size: cover; /* Scale the background image to cover the entire area */
+  background-position: center; /* Center the background image */
+  background-repeat: no-repeat; /* Prevent the background image from repeating */
+  background-attachment: fixed; /* Optional: Fix the background image relative to the viewport */
+  
+  min-height: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: red;
 }
+
+
 
 .App-link {
   color: #61dafb;
@@ -35,4 +42,48 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+.navbar {
+  background-color: #333;
+  padding: 1rem;
+}
+
+.nav-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.nav-item {
+  margin-right: 15rem;
+}
+
+.nav-item a {
+  color: white;
+  text-decoration: none;
+
+}
+
+.nav-item a:hover {
+  text-decoration: underline;
+}
+
+.content {
+  padding: 2rem;
+}
+
+/* App.css */
+.innerman-school {
+  font-weight: bold;      
+  color: white;               
+  background-color: red;      
+  padding: 10px 20px;        
+  border-radius: 15px;        
+  display: inline-block;      
+  text-align: center;        
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); 
+  margin: 10px 0;             
 }
