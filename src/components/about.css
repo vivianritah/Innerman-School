@@ -1,44 +1,66 @@
+/* about.css */
+.about-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: rgb(6, 133, 207);
+  padding: 20px;
+}
+
+.content-wrapper {
+  max-width: 800px;
+  background: #fffdd0;  /* Cream color */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.page-title {
+  font-size: 32px;
+  margin-bottom: 30px;
+  color: #333;
+}
 
 .section {
-    background-color: rgb(6, 133, 207);
-    color: #fff;
-    padding: 40px 20px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .motto-section {
-    text-align: center; /* Center align text in motto section */
-    background-color: rgb(6, 133, 207);
-  }
-  
-  .info-section {
-    /* display: flex; */
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px; /* Adjust the gap between vision and mission sections */
-    /* background-color: rgb(6, 133, 207); */
-    
-  }
-  
-  .vision-mission {
-    width: 50%;
-    max-width: 500px; /* Limit width of vision and mission sections */
-    background-color: rgb(6, 133, 207);
-  }
-  
-  .values-section {
-    text-align: center; /* Center align text in values section */
-    background-color: rgb(6, 133, 207);
-  }
-  
-  .values-list {
-    list-style: none;
-    padding: 0;
-    font-size: 18px;
-  }
-  
-  .values-list li {
-    margin: 10px 0;
-  }
-  
+  margin-bottom: 30px;
+}
+
+.title {
+  font-size: 26px;
+  margin-bottom: 15px;
+  color: #555;
+}
+
+.text {
+  font-size: 18px;
+  color: #666;
+}
+
+.values-section {
+  margin-top: 30px;
+}
+
+.values-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  font-size: 18px;
+  color: #666;
+  text-align: left;
+}
+
+.values-list li {
+  margin: 10px 0;
+  position: relative;
+}
+
+.values-list li::before {
+  content: '•';
+  color: #555;
+  font-weight: bold;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+}
