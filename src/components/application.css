@@ -1,0 +1,56 @@
+/* Applications.css */
+.application {
+    background-color: white; /* White background for the form */
+    padding: 2rem;
+    max-width: 600px;
+    margin: 2rem auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .application-title {
+    color: red; /* Red color for the title */
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .application-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .application-form label {
+    margin-bottom: 1rem;
+    color: red; /* Red color for labels */
+    font-weight: bold;
+  }
+  
+  .application-form input {
+    padding: 0.5rem;
+    border: 2px solid red; /* Red border for inputs */
+    border-radius: 5px;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    outline: none;
+  }
+  
+  .application-form input:focus {
+    border-color: darkred; /* Darker red on focus */
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+  }
+  
+  .application-form button {
+    background-color: red; /* Red background for the button */
+    color: white; /* White text for the button */
+    border: none;
+    padding: 0.75rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .application-form button:hover {
+    background-color: darkred; /* Darker red on hover */
+  }
+  
