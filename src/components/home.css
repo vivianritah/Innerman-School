@@ -132,3 +132,46 @@ body {
   font-size: 16px;
   color: #666;
 }
+
+.highlights {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 40px 20px;
+  background-color: #fff;
+}
+
+.highlight {
+  max-width: 30%;
+  margin-bottom: 20px;
+  padding: 20px;
+  text-align: center;
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.highlight img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.highlight h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  color: #0056b3;
+}
+
+.highlight p {
+  font-size: 1em;
+  color: #666;
+}
+
+.highlight img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
