@@ -71,7 +71,7 @@
 .innerman-school {
   font-weight: bold;
   color: white;
-  background-color: red;
+  background-color: blue;
   padding: 20px 50px;
   border-radius: 50px;
   display: inline-block;
@@ -89,6 +89,4 @@
     transform: rotate(360deg);
   }
 }
-
-/* Existing styles... */
 

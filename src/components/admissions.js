@@ -1,88 +1,75 @@
-// Admissions.js
+
 
 import React from 'react';
-import './admissions.css'; // Optional: for custom styles
+import './admissions.css'; // Import the custom styles
 
 // Fees structure for each class
 const feesData = [
   {
-    class: 'Baby Class',
+    class: 'Baby',
     fees: {
-      tuition: 200,
-      registration: 50,
-      uniform: 30,
+      day: '286,000 UGX', // Tuition Fees for Day scholars
+      boarding: '740,000 UGX', // Tuition Fees for Boarders
+      registration: '30,000 UGX', // General Registration Fees
+      uniformBoarding: '256,000 UGX', // Uniform Fees for Boarders
+      uniformDay: '166,000',
     },
   },
   {
-    class: 'Nursery',
+    class: 'Middle to Top',
     fees: {
-      tuition: 220,
-      registration: 50,
-      uniform: 35,
+      day: '295,000 UGX', // Tuition Fees for Day scholars
+      boarding: '750,000 UGX', // Tuition Fees for Boarders
+      registration: '30,000 UGX', // General Registration Fees
+      uniformBoarding: '256,000 UGX', // Uniform Fees for Boarders
+      uniformDay: '166,000',
     },
   },
   {
-    class: 'Pre-Primary',
+    class: 'P1 to P2',
     fees: {
-      tuition: 250,
-      registration: 50,
-      uniform: 40,
-    },
+      day: '317,000',
+      boarding: '715,000',
+      registration: '30,000',
+      uniformBoarding: '270,000',
+      uniformDay: '176,000',
+    }
   },
   {
-    class: 'Primary One',
+    class: 'P3',
     fees: {
-      tuition: 300,
-      registration: 60,
-      uniform: 45,
-    },
+      day: '330,000',
+      boarding: '720,000',
+      registration: '30,000',
+      uniformBoarding: '270,000',
+      uniformDay: '176,000',
+    }
   },
   {
-    class: 'Primary Two',
+    class: 'P4 to P6',
     fees: {
-      tuition: 320,
-      registration: 60,
-      uniform: 45,
-    },
+      day: '410,000',
+      boarding: '730,000',
+      registration: '30,000',
+      uniformBoarding: '270,000',
+      uniformDay: '176,000',
+
+    }
   },
   {
-    class: 'Primary Three',
+    class: 'P7',
     fees: {
-      tuition: 350,
-      registration: 60,
-      uniform: 50,
-    },
+      day: '465,000',
+      boarding: '760,000',
+      registration: '30,000',
+      uniformBoarding: '270,000',
+      uniformDay: '176,000',
+    }
   },
   {
-    class: 'Primary Four',
+    class: 'P.7 PLE (UNEB)',
     fees: {
-      tuition: 370,
-      registration: 60,
-      uniform: 50,
-    },
-  },
-  {
-    class: 'Primary Five',
-    fees: {
-      tuition: 400,
-      registration: 70,
-      uniform: 55,
-    },
-  },
-  {
-    class: 'Primary Six',
-    fees: {
-      tuition: 420,
-      registration: 70,
-      uniform: 55,
-    },
-  },
-  {
-    class: 'Primary Seven',
-    fees: {
-      tuition: 450,
-      registration: 80,
-      uniform: 60,
+      registration: '150,000 UGX', // UNEB Registration Fees
     },
   },
 ];
@@ -96,18 +83,22 @@ function Admissions() {
         <thead>
           <tr>
             <th>Class</th>
-            <th>Tuition Fees ($)</th>
-            <th>Registration Fees ($)</th>
-            <th>Uniform Fees ($)</th>
+            <th>Tuition Fees (Day)</th>
+            <th>Tuition Fees (Boarding)</th>
+            <th>Registration Fees</th>
+            <th>Day Uniform Fees</th>
+            <th>Boarding Uniform Fees</th>
           </tr>
         </thead>
         <tbody>
           {feesData.map((item, index) => (
             <tr key={index}>
               <td>{item.class}</td>
-              <td>{item.fees.tuition}</td>
+              <td>{item.fees.day || '-'}</td>
+              <td>{item.fees.boarding || '-'}</td>
               <td>{item.fees.registration}</td>
-              <td>{item.fees.uniform}</td>
+              <td>{item.fees.uniformBoarding || '-'}</td>
+              <td>{item.fees.uniformDay || '-'}</td>
             </tr>
           ))}
         </tbody>
