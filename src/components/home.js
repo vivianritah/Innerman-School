@@ -29,7 +29,7 @@ function Home() {
       <section className="hero">
         <h1>Welcome to Innerman Pre & Primary School</h1>
         <p>Empowering young minds for a brighter future.</p>
-        <button className="apply-button">Apply Now</button>
+        <a href="/applications" class="apply-button">Apply Now</a>
       </section>
       
       {/* Events Section */}
