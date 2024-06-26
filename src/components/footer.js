@@ -13,9 +13,9 @@ const Footer = () => {
             <p>
               Plot 1077, Kasuubi, Kampala<br />
               (500 m after Quality Shopping Village)<br />
-              P.O. Box 11119 Kampala Uganda<br />
-              <strong>Tel:</strong> +256 781 468 000<br />
-              <strong>Email:</strong> <a href="mailto:admissions@gisu.ac.ug">admissions@gisu.ac.ug</a> | <a href="mailto:info@gisu.ac.ug">info@gisu.ac.ug</a><br />
+              P.O. Box 24686 Kampala Uganda<br />
+              <strong>Tel:</strong> +256 780 805954<br />
+              <strong>Email:</strong> <a href="mailto:innermanprimaryschool@gmail.com">innermanprimaryschool@gmail.com</a><br />
             </p>
           </div>
           <div className="quick-links">

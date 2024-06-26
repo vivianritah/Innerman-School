@@ -12,19 +12,19 @@ function Contact() {
       <header className="header">
         <img src={logo} alt="Innerman logo" className="logo" />
         <div className="contact-info">
-          <p>0414 342 684 | 0757 211 737 |</p>
+          <p>0780 805 954 | 0707 222 888 |</p>
         </div>
       </header>
       <div className="content-wrapper">
-        <h1 className="page-title">Innerman Pre & Primary School</h1>
+        <h1 className="page-title"> <FontAwesomeIcon icon={faMapMarkerAlt} className="location-icon" /> Innerman Pre & Primary School</h1>
         <div className="address-section">
-          <FontAwesomeIcon icon={faMapMarkerAlt} className="location-icon" />
+          
           <div className="address-details">
             <p><strong>Innerman Pre & Primary School</strong></p>
             <p> Kimera Road</p>
             <p>Kasuubi, Kampala</p>
-            <p>P.O.Box 246, Kampala Uganda</p>
-            <p>+256(0)757 211737 | +256(0)757 211344</p>
+            <p>P.O.Box 24686, Kampala Uganda</p>
+            <p>+256(0)707 222888 | +256(0)780 805954</p>
           </div>
         </div>
         <div className="social-media">
