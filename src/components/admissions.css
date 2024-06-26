@@ -1,0 +1,40 @@
+/* Admissions.css */
+
+.admissions {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .admissions h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: 'Arial, sans-serif';
+    color: #343a40;
+  }
+  
+  .fees-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+    background-color: #ffffff;
+  }
+  
+  .fees-table th,
+  .fees-table td {
+    padding: 12px;
+    border: 1px solid #dee2e6;
+    text-align: left;
+    font-family: 'Arial, sans-serif';
+  }
+  
+  .fees-table th {
+    background-color: #343a40;
+    color: #ffffff;
+  }
+  
+  .fees-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  

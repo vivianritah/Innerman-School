@@ -21,7 +21,7 @@
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  min-height: 300px;
+  min-height: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -44,7 +44,7 @@
 }
 
 .nav-item {
-  margin-right: 15rem;
+  margin-right: 12rem;
 }
 
 .nav-item a {
@@ -72,14 +72,13 @@
   font-weight: bold;
   color: white;
   background-color: red;
-  padding: 10px 20px;
-  border-radius: 15px;
+  padding: 20px 50px;
+  border-radius: 50px;
   display: inline-block;
-  text-align: top;
+  text-align: center;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  margin: 10px 0;
+  margin: 10px 20px;
   position: absolute;
-  bottom: 20px;
 }
 
 @keyframes App-logo-spin {
@@ -91,18 +90,22 @@
   }
 }
 
+/* Existing styles... */
+
+/* Events section styles */
 .events-section {
-  background-color: white;
+  background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 800px;
+  max-width: 900px; /* Adjusted to fit content better */
   margin: 20px auto;
   padding: 20px;
 }
 
 .events-section h2 {
-  color: #283593;
+  color: #d834a8; /* Bright color to match the "Upcoming Events" text */
   text-align: left;
+  margin-bottom: 20px; /* Adds space between title and content */
 }
 
 .events-section ul {
@@ -111,20 +114,70 @@
 }
 
 .events-section li {
-  background-color: #e8eaf6;
-  margin: 10px 0;
-  padding: 10px;
-  border-radius: 5px;
+  background-color: #f8f9fa;
+  margin: 20px 0; /* Adds spacing between event cards */
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center; /* Vertically centers the date and event details */
+  transition: transform 0.3s, box-shadow 0.3s; /* Animation for hover effect */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.events-section li:hover {
+  transform: translateY(-5px); /* Lift effect on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Deeper shadow on hover */
+}
+
+.event-date {
+  background-color: #ffc107; /* Bright yellow for date box */
+  color: #283593; /* Dark blue for text */
+  text-align: center;
+  padding: 15px;
+  border-radius: 10px;
+  margin-right: 20px;
+  flex-shrink: 0; /* Prevents shrinking of date box */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adds shadow to date box */
+}
+
+.event-date .month {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.event-date .day {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.event-date .year {
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.event-details {
   text-align: left;
+  flex-grow: 1; /* Allows details to grow */
 }
 
-.events-section li p {
-  margin: 5px 0;
+.event-details strong {
+  font-size: 1.4em;
+  color: #283593;
+  margin-bottom: 10px;
+  display: block; 
 }
 
-.events-section li strong {
-  font-size: 18px;
-  color: #3949ab;
+.event-details p {
+  color: #6c757d;
+  margin: 10px 0;
 }
 
+.event-time {
+  font-weight: bold;
+  color: #343a40; /* Dark grey for emphasis */
+}
 
+.event-location {
+  font-style: italic;
+  color: #007bff; /* Blue for location text */
+}

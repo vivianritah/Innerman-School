@@ -1,0 +1,72 @@
+/* Footer Styles */
+.footer {
+    background-color: #c10060; /* Magenta-like color */
+    color: white;
+    padding: 20px 0;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .footer-container {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  
+  .footer-content div {
+    width: 45%;
+    margin-bottom: 20px;
+  }
+  
+  h3 {
+    margin-bottom: 10px;
+    font-size: 1.2em;
+  }
+  
+  p, ul {
+    margin: 0;
+    padding: 0;
+  }
+  
+  ul {
+    list-style: none;
+  }
+  
+  ul li {
+    margin-bottom: 10px;
+  }
+  
+  ul li a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  ul li a:hover {
+    text-decoration: underline;
+  }
+  
+  .footer-bottom {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 0.9em;
+  }
+  
+  .footer-bottom a {
+    color: #ffd700; /* Yellow color for links */
+    text-decoration: none;
+  }
+  
+  .footer-bottom a:hover {
+    text-decoration: underline;
+  }
+  

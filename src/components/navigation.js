@@ -20,6 +20,9 @@ function NavBar() {
         <li className="nav-item">
           <Link to="/applications">Applications</Link>
         </li>
+        <li className="nav-item">
+          <Link to="/gallery">Gallery</Link>
+        </li>
 
         
       </ul>
