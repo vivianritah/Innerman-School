@@ -13,6 +13,9 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import HeaderSlideshow from './components/slideShow';
 import Footer from './components/footer';
+import LoginButton from './components/loginButton';
+import Login from './components/loginPage';
+import Dashboard from './components/dashboard'; // Use the Dashboard component
 
 function App() {
   return (
@@ -20,7 +23,12 @@ function App() {
       <div className="App">
         <header className="App-header">
           <HeaderSlideshow />
-          <p className="innerman-school">INNERMAN PRE & PRIMARY SCHOOL</p>
+          <div className="header-content">
+            <div className="header-flex-container">
+              <p className="innerman-school">INNERMAN PRE & PRIMARY SCHOOL</p>
+              <LoginButton className="login-button" />
+            </div>
+          </div>
         </header>
         <NavBar className="navbar" />
         <div className="content">
@@ -31,6 +39,8 @@ function App() {
             <Route path="/admissions" element={<Admissions />} />
             <Route path="/applications" element={<Applications />} />
             <Route path="/gallery" element={<Gallery />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/dashboard" element={<Dashboard />} /> {/* Add route for Dashboard */}
             <Route path="*" element={<NoPage />} />
           </Routes>
         </div>

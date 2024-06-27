@@ -1,0 +1,68 @@
+.dashboard {
+    padding: 2rem;
+    background-color: #f4f4f4;
+  }
+  
+  .dashboard h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .dashboard-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: space-around;
+  }
+  
+  .dashboard-section {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    width: 45%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .event-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .event-item {
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .event-item:last-child {
+    border-bottom: none;
+  }
+  
+  .event-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  
+  .event-form input,
+  .event-form textarea {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .event-form button {
+    padding: 0.75rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .event-form button:hover {
+    background-color: #0056b3;
+  }
+  

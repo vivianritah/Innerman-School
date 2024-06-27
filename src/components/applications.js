@@ -1,7 +1,6 @@
-// Applications.js
 import React, { useState } from 'react';
-import './application.css'
-
+import './application.css';
+import { showNotification } from './notification';
 
 function Applications() {
   const [firstName, setFirstName] = useState("");
@@ -33,11 +32,12 @@ function Applications() {
       Guardian Contact: ${guardianContact}
       Guardian Email: ${guardianEmail}
     `);
+    showNotification('Your application has been submitted!');
   };
 
   return (
     <div className="application">
-      <h1 className="application-title">Please Fill This  Application Form</h1>
+      <h1 className="application-title">Please Fill This Application Form</h1>
       <form className="application-form" onSubmit={handleSubmit}>
         <label>First Name:
           <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
