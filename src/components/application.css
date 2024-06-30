@@ -1,6 +1,6 @@
 /* Style the form container */
 .application {
-  background-color: #fff; /* White background for the form */
+  background-color: #fffdd0; /* White background for the form */
   color: #000; /* Black text color */
   padding: 20px;
   max-width: 500px;
@@ -71,5 +71,5 @@
 
 /* Style the submit button on hover */
 .application-form button:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+  background-color: #0056b3; 
 }

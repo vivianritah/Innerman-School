@@ -1,5 +1,3 @@
-// events.js
-
 const schoolEvents = [
     {
         date: "2024-01-15",
@@ -21,13 +19,6 @@ const schoolEvents = [
         description: "Public holiday to celebrate International Women's Day.",
         type: "Holiday",
         location: "Uganda"
-    },
-    {
-        date: "2024-04-01",
-        eventName: "End of Term 1 Exams",
-        description: "Start of end-of-term exams for all classes.",
-        type: "Academic",
-        location: "Classrooms"
     },
     {
         date: "2024-04-12",
@@ -65,20 +56,6 @@ const schoolEvents = [
         location: "Uganda"
     },
     {
-        date: "2024-07-15",
-        eventName: "Mid-Term Break",
-        description: "Mid-term break for students.",
-        type: "Break",
-        location: "Home"
-    },
-    {
-        date: "2024-08-09",
-        eventName: "End of Term 2 Exams",
-        description: "Start of end-of-term exams for Term 2.",
-        type: "Academic",
-        location: "Classrooms"
-    },
-    {
         date: "2024-08-23",
         eventName: "Term 2 Ends",
         description: "Last day of Term 2 before holidays.",
@@ -114,13 +91,6 @@ const schoolEvents = [
         location: "School Field"
     },
     {
-        date: "2024-12-06",
-        eventName: "End of Term 3 Exams",
-        description: "Start of end-of-term exams for Term 3.",
-        type: "Academic",
-        location: "Classrooms"
-    },
-    {
         date: "2024-12-20",
         eventName: "Term 3 Ends",
         description: "Last day of Term 3 and the academic year.",
@@ -136,5 +106,4 @@ const schoolEvents = [
     }
 ];
 
-// Export the schoolEvents array for use in other parts of the application
 export default schoolEvents;

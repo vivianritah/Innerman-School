@@ -1,14 +1,10 @@
 import React from 'react';
-import schoolEvents from '../components/events'; // Ensure the path is correct
-import './home.css'; // Ensure the file exists
-
-// Importing images from src
+import schoolEvents from '../components/events'; 
+import './home.css';
 import AchievementImage from '../images/background3.jpg';
 import FacilitiesImage from '../images/background5.jpg';
 import CommunityImage from '../images/image7.jpg';
 
-
-// Ensure paths are correct. Avoid importing images directly from public folder.
 function Home() {
   const formatDate = (dateString) => {
     try {
@@ -25,14 +21,39 @@ function Home() {
 
   return (
     <div className="home-page">
-      {/* Hero Section */}
       <section className="hero">
         <h1>Welcome to Innerman Pre & Primary School</h1>
         <p>Empowering young minds for a brighter future.</p>
-        <a href="/applications" class="apply-button">Apply Now</a>
+        
       </section>
+
       
-      {/* Events Section */}
+      <section className="testimonials">
+        <h2>What Our Community Says</h2>
+        <blockquote>
+          "Innerman School has provided my children with a well-rounded education and a caring environment."
+          <cite>- Parent of a Grade 5 student</cite>
+        </blockquote>
+      </section>
+      <section className="highlights">
+        <div className="highlight">
+          <img src={AchievementImage} alt="Our Achievements" />
+          <h2>Our Achievements</h2>
+          <p>We are proud of our pupils' academic and extracurricular accomplishments.</p>
+        </div>
+        <div className="highlight">
+          <img src={FacilitiesImage} alt="Facilities" />
+          <h2>State-of-the-Art Facilities</h2>
+          <p>Explore our modern classrooms, dormitories, and sports facilities.</p>
+        </div>
+        <div className="highlight">
+          <img src={CommunityImage} alt="Community Engagement" /> 
+          <h2>Community Engagement</h2>
+          <p>Join us in various community service and outreach programs.</p>
+        </div>
+      </section>
+
+
       <div className="events-section">
         <h2>Upcoming Events</h2>
         <ul>
@@ -57,35 +78,7 @@ function Home() {
             );
           })}
         </ul>
-      </div>
-
-      {/* Testimonials Section */}
-      <section className="testimonials">
-        <h2>What Our Community Says</h2>
-        <blockquote>
-          "Innerman School has provided my children with a well-rounded education and a caring environment."
-          <cite>- Parent of a Grade 5 student</cite>
-        </blockquote>
-      </section>
-
-      {/* Highlights Section */}
-      <section className="highlights">
-        <div className="highlight">
-          <img src={AchievementImage} alt="Our Achievements" />
-          <h2>Our Achievements</h2>
-          <p>We are proud of our students' academic and extracurricular accomplishments.</p>
-        </div>
-        <div className="highlight">
-          <img src={FacilitiesImage} alt="Facilities" />
-          <h2>State-of-the-Art Facilities</h2>
-          <p>Explore our modern classrooms, laboratories, and sports facilities.</p>
-        </div>
-        <div className="highlight">
-          <img src={CommunityImage} alt="Community Engagement" /> {/* Use public path directly */}
-          <h2>Community Engagement</h2>
-          <p>Join us in various community service and outreach programs.</p>
-        </div>
-      </section>
+      </div>    
     </div>
   );
 }

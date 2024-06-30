@@ -24,9 +24,13 @@ const HeaderSlideshow = () => {
     <div className="slideshow-container">
       <Slider {...settings}>
         {images.map((image, index) => (
-          <div key={index}>
+          <div className="slide" key={index}>
             <img src={image} alt={`Slide ${index}`} className="slide-image" />
-            {/* Slide number removed */}
+            <div className="slide-text">
+              <h2>Grow in Stature, Wisdom and Spirit</h2>
+              <p>To raise a God-fearing generation through a holistic quality education.</p>
+              <a href="/applications" class="apply-button">Apply Now</a>
+            </div>
           </div>
         ))}
       </Slider>
