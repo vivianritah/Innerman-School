@@ -60,11 +60,11 @@ function Applications() {
         <label>Previous English Grade:
           <input type="text" value={englishGrade} onChange={(e) => setEnglishGrade(e.target.value)} required />
         </label>
-        <label>Previous Science Grade:
-          <input type="text" value={scienceGrade} onChange={(e) => setScienceGrade(e.target.value)} required />
-        </label>
         <label>Current Class Level:
           <input type="text" value={currentClassLevel} onChange={(e) => setCurrentClassLevel(e.target.value)} required />
+        </label>
+        <label>Year of Admission:
+          <input type="text" value={scienceGrade} onChange={(e) => setScienceGrade(e.target.value)} required />
         </label>
         <label>Guardian Full Name:
           <input type="text" value={guardianName} onChange={(e) => setGuardianName(e.target.value)} required />

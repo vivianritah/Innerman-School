@@ -9,7 +9,6 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [contact, setContact] = useState('');
   const [password, setPassword] = useState('');
-  const [biography, setBiography] = useState('');
   const [userType, setUserType] = useState('');
   const [image, setImage] = useState(null);
 
@@ -24,7 +23,6 @@ const Login = () => {
       email,
       contact,
       password,
-      biography,
       userType,
       image,
     });
@@ -60,14 +58,10 @@ const Login = () => {
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
         </label>
         <label>
-          Biography:
-          <textarea value={biography} onChange={(e) => setBiography(e.target.value)} />
-        </label>
-        <label>
           User Type:
           <select value={userType} onChange={(e) => setUserType(e.target.value)} required>
             <option value="">Select User Type</option>
-            <option value="student">Student</option>
+            <option value="student">Administrator</option>
             <option value="teacher">Teacher</option>
             <option value="parent">Parent</option>
           </select>
