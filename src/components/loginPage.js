@@ -30,15 +30,6 @@ const Login = () => {
           Password:
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
         </label>
-        {/* <label>
-          User Type:
-          <select value={userType} onChange={(e) => setUserType(e.target.value)} required>
-            <option value="">Select User Type</option>
-            <option value="student">Administrator</option>
-            <option value="teacher">Teacher</option>
-            <option value="parent">Parent</option>
-          </select>
-        </label> */}
         <button type="submit">Submit</button>
       </form>
     </div>
