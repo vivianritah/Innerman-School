@@ -1,25 +1,27 @@
-import React, { useState } from 'react';
-import schoolEvents from '../components/events'; // Adjust the path according to your project structure
+import React, { useState, useEffect } from 'react';
 import './dashboard.css';
-const Dashboard = () => {
-  const [eventName, setEventName] = useState('');
-  const [eventDate, setEventDate] = useState('');
-  const [eventDescription, setEventDescription] = useState('');
-  const [eventType, setEventType] = useState('');
-  const [eventLocation, setEventLocation] = useState('');
-  const [events, setEvents] = useState(schoolEvents);
 
-  // Handler for adding new event
-  const handleAddEvent = (e) => {
-    e.preventDefault();
-    const newEvent = {
-      date: eventDate,
-      eventName,
-      description: eventDescription,
-      type: eventType,
-      location: eventLocation,
-    };
-    setEvents([...events, newEvent]);
+
+const Dashboard = () => {
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    // Fetch events from API or wherever they are stored
+    // Example fetch call
+    fetchEvents();
+  }, []);
+
+  const fetchEvents = async () => {
+    try {
+      const response = await fetch('http://127.0.0.1:5000/api/v1/events');
+      if (!response.ok) {
+        throw new Error('Failed to fetch events');
+      }
+      const data = await response.json();
+      setEvents(data.events);
+    } catch (error) {
+      console.error('Error fetching events:', error);
+    }
   };
 
   return (
@@ -40,57 +42,6 @@ const Dashboard = () => {
               </li>
             ))}
           </ul>
-        </div>
-
-        <div className="dashboard-section">
-          <h3>Add New Event</h3>
-          <form className="event-form" onSubmit={handleAddEvent}>
-            <label>
-              Event Name:
-              <input
-                type="text"
-                value={eventName}
-                onChange={(e) => setEventName(e.target.value)}
-                required
-              />
-            </label>
-            <label>
-              Event Date:
-              <input
-                type="date"
-                value={eventDate}
-                onChange={(e) => setEventDate(e.target.value)}
-                required
-              />
-            </label>
-            <label>
-              Description:
-              <textarea
-                value={eventDescription}
-                onChange={(e) => setEventDescription(e.target.value)}
-                required
-              />
-            </label>
-            <label>
-              Event Type:
-              <input
-                type="text"
-                value={eventType}
-                onChange={(e) => setEventType(e.target.value)}
-                required
-              />
-            </label>
-            <label>
-              Location:
-              <input
-                type="text"
-                value={eventLocation}
-                onChange={(e) => setEventLocation(e.target.value)}
-                required
-              />
-            </label>
-            <button type="submit">Add Event</button>
-          </form>
         </div>
       </div>
     </div>

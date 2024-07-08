@@ -1,39 +1,61 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './application.css';
 import { showNotification } from './notification';
+import { useNavigate } from 'react-router-dom';
 
 function Applications() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [otherName, setOtherName] = useState("");
-  const [dob, setDob] = useState("");
-  const [previousSchool, setPreviousSchool] = useState("");
-  const [mathGrade, setMathGrade] = useState("");
-  const [englishGrade, setEnglishGrade] = useState("");
-  const [scienceGrade, setScienceGrade] = useState("");
-  const [currentClassLevel, setCurrentClassLevel] = useState("");
-  const [guardianName, setGuardianName] = useState("");
-  const [guardianContact, setGuardianContact] = useState("");
-  const [guardianEmail, setGuardianEmail] = useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [otherName, setOtherName] = useState('');
+  const [dob, setDob] = useState('');
+  const [previousSchool, setPreviousSchool] = useState('');
+  const [mathGrade, setMathGrade] = useState('');
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert(`
-      First Name: ${firstName}
-      Last Name: ${lastName}
-      Other Name: ${otherName}
-      Date of Birth: ${dob}
-      Previous School: ${previousSchool}
-      Previous Math Grade: ${mathGrade}
-      Previous English Grade: ${englishGrade}
-      Previous Science Grade: ${scienceGrade}
-      Current Class Level: ${currentClassLevel}
-      Guardian Full Name: ${guardianName}
-      Guardian Contact: ${guardianContact}
-      Guardian Email: ${guardianEmail}
-    `);
-    showNotification('Your application has been submitted!');
+
+    const formData = {
+      firstName,
+      lastName,
+      otherName,
+      dob,
+      previousSchool,
+      mathGrade,
+    };
+
+    try {
+      const response = await fetch('http://127.0.0.1:5000/api/v1/auth/applications', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      showNotification('Your application has been submitted!');
+      console.log('Success:', result);
+    } catch (error) {
+      console.error('Error:', error);
+      showNotification('Failed to submit your application.');
+    }
   };
+
+  useEffect(() => {
+    // Check if user is authenticated
+    const accessToken = localStorage.getItem('access_token');
+    if (!accessToken) {
+      // Redirect or handle unauthenticated user
+      navigate('/login'); // Example redirection to login page
+    }
+  }, [navigate]);
 
   return (
     <div className="application">
@@ -56,24 +78,6 @@ function Applications() {
         </label>
         <label>Previous Math Grade:
           <input type="text" value={mathGrade} onChange={(e) => setMathGrade(e.target.value)} required />
-        </label>
-        <label>Previous English Grade:
-          <input type="text" value={englishGrade} onChange={(e) => setEnglishGrade(e.target.value)} required />
-        </label>
-        <label>Current Class Level:
-          <input type="text" value={currentClassLevel} onChange={(e) => setCurrentClassLevel(e.target.value)} required />
-        </label>
-        <label>Year of Admission:
-          <input type="text" value={scienceGrade} onChange={(e) => setScienceGrade(e.target.value)} required />
-        </label>
-        <label>Guardian Full Name:
-          <input type="text" value={guardianName} onChange={(e) => setGuardianName(e.target.value)} required />
-        </label>
-        <label>Guardian Contact:
-          <input type="text" value={guardianContact} onChange={(e) => setGuardianContact(e.target.value)} required />
-        </label>
-        <label>Guardian Email:
-          <input type="email" value={guardianEmail} onChange={(e) => setGuardianEmail(e.target.value)} required />
         </label>
         <button type="submit">Submit</button>
       </form>

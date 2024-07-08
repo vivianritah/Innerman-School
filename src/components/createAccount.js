@@ -1,14 +1,13 @@
-// createAccount.js
 import React, { useState } from 'react';
-import './createAccount.css'; // Import the CSS file
+import './createAccount.css'; 
 
 function CreateAccount() {
   const [formData, setFormData] = useState({
-    firstname: '',
-    lastname: '',
+    first_name: '',
+    last_name: '',
     email: '',
     password: '',
-    usertype: ''
+    user_type: ''
   });
 
   const handleChange = (e) => {
@@ -16,9 +15,30 @@ function CreateAccount() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('Form data submitted:', formData);
+
+    try {
+      const response = await fetch('http://127.0.0.1:5000/api/v1/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('Error:', errorData);
+        return;
+      }
+
+      const data = await response.json();
+      console.log('Success:', data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   return (
@@ -26,23 +46,23 @@ function CreateAccount() {
       <h2>Create Account</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="firstname">First Name:</label>
+          <label htmlFor="first_name">First Name:</label>
           <input
             type="text"
-            id="firstname"
-            name="firstname"
-            value={formData.firstname}
+            id="first_name"
+            name="first_name"
+            value={formData.first_name}
             onChange={handleChange}
             required
           />
         </div>
         <div>
-          <label htmlFor="lastname">Last Name:</label>
+          <label htmlFor="last_name">Last Name:</label>
           <input
             type="text"
-            id="lastname"
-            name="lastname"
-            value={formData.lastname}
+            id="last_name"
+            name="last_name"
+            value={formData.last_name}
             onChange={handleChange}
             required
           />
@@ -70,11 +90,11 @@ function CreateAccount() {
           />
         </div>
         <div>
-          <label htmlFor="usertype">User Type:</label>
+          <label htmlFor="user_type">User Type:</label>
           <select
-            id="usertype"
-            name="usertype"
-            value={formData.usertype}
+            id="user_type"
+            name="user_type"
+            value={formData.user_type}
             onChange={handleChange}
             required
           >
