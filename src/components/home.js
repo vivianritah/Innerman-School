@@ -1,11 +1,13 @@
-import React from 'react';
-import schoolEvents from '../components/events'; 
-import './home.css';
+import React, { useState, useEffect } from 'react';
+import './home.css'; // Importing CSS for styling
 import AchievementImage from '../images/background3.jpg';
 import FacilitiesImage from '../images/background5.jpg';
 import CommunityImage from '../images/image7.jpg';
 
-function Home() {
+const Home = () => {
+  const [events, setEvents] = useState([]);
+
+  // Function to format date
   const formatDate = (dateString) => {
     try {
       const date = new Date(dateString);
@@ -19,15 +21,35 @@ function Home() {
     }
   };
 
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const token = localStorage.getItem('accessToken'); // Assuming token is stored in localStorage
+        const response = await fetch('http://127.0.0.1:5000/api/v1/events', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        if (!response.ok) {
+          throw new Error('Failed to fetch events');
+        }
+        const data = await response.json();
+        setEvents(data);
+      } catch (error) {
+        console.error('Error fetching events:', error);
+      }
+    };
+  
+    fetchEvents();
+  }, []);
+  
   return (
     <div className="home-page">
       <section className="hero">
         <h1>Welcome to Innerman Pre & Primary School</h1>
         <p>Empowering young minds for a brighter future.</p>
-        
       </section>
 
-      
       <section className="testimonials">
         <h2>What Our Community Says</h2>
         <blockquote>
@@ -35,6 +57,7 @@ function Home() {
           <cite>- Parent of a Grade 5 student</cite>
         </blockquote>
       </section>
+
       <section className="highlights">
         <div className="highlight">
           <img src={AchievementImage} alt="Our Achievements" />
@@ -47,17 +70,16 @@ function Home() {
           <p>Explore our modern classrooms, dormitories, and sports facilities.</p>
         </div>
         <div className="highlight">
-          <img src={CommunityImage} alt="Community Engagement" /> 
+          <img src={CommunityImage} alt="Community Engagement" />
           <h2>Community Engagement</h2>
           <p>Join us in various community service and outreach programs.</p>
         </div>
       </section>
 
-
       <div className="events-section">
         <h2>Upcoming Events</h2>
         <ul>
-          {schoolEvents.map((event, index) => {
+          {events.map((event, index) => {
             const { day, month, year } = formatDate(event.date);
             return (
               <li key={index} className="event-item">
@@ -78,9 +100,9 @@ function Home() {
             );
           })}
         </ul>
-      </div>    
+      </div>
     </div>
   );
-}
+};
 
 export default Home;

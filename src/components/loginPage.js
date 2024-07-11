@@ -11,7 +11,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-  
+
     try {
       const response = await fetch('http://127.0.0.1:5000/api/v1/auth/login', {
         method: 'POST',
@@ -20,30 +20,30 @@ const Login = () => {
         },
         body: JSON.stringify({ email, password }),
       });
-  
+
       const data = await response.json();
-  
+
       if (!response.ok) {
         setError(data.error || 'An error occurred');
         return;
       }
-  
+
       console.log('Login successful:', data);
       alert('Login successful!');
       localStorage.setItem('access_token', data.access_token);
-  
+      localStorage.setItem('user_id', data.user_id); // Storing user_id in localStorage
+
       // Redirect logic based on user type or condition
-      if (data.user && data.user.type === 'admin') {
-        navigate('/dashboard'); // Redirect to dashboard for admin
+      if (data.user_type === 'admin') {
+        navigate('/dashboard'); // Redirect to admin dashboard
       } else {
-        navigate('/applications'); // Redirect to applications page for other users
+        navigate('/applications'); // Redirect to user applications page
       }
     } catch (error) {
       console.error('Error logging in:', error);
       setError('An error occurred during login.');
     }
   };
-  
 
   return (
     <div className="login-form-container">

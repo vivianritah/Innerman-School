@@ -29,7 +29,7 @@ const HeaderSlideshow = () => {
             <div className="slide-text">
               <h2>Grow in Stature, Wisdom and Spirit</h2>
               <p>To raise a God-fearing generation through a holistic quality education.</p>
-              <a href="/applications" class="apply-button">Apply Now</a>
+              <a href="/createAccount" class="apply-button">Apply Now</a>
             </div>
           </div>
         ))}

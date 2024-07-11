@@ -18,11 +18,13 @@ body {
 .hero h1 {
   font-size: 42px;
   margin-bottom: 20px;
+  color: #333;
 }
 
 .hero p {
-  font-size: 20px;
+  font-size: 30px;
   margin-bottom: 30px;
+  color: #333;
 }
 
 

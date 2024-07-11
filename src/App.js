@@ -54,6 +54,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/createAccount" element={<CreateAccount />} />
             <Route path="*" element={<NoPage />} />
+            <Route path="/" element={<Home />} />
           </Routes>
         </div>
         <Footer />
