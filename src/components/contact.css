@@ -3,18 +3,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgb(6, 133, 207);
+  /* background-color: rgb(6, 133, 207); */
   padding: 20px;
   min-height: 100vh;
 }
 
 .header {
-  width: 100%;
+  width: 70%;
   background-color: white;
-  color: blue;
+  color: #4285F4;
   text-align: center;
   padding: 10px 0;
   position: relative;
+  border-radius: 10px;
 }
 
 .header .logo {
@@ -35,7 +36,7 @@
 }
 
 .content-wrapper {
-  background-color: #fffdd0; /* Cream color */
+  background-color: white; 
   padding: 30px;
   margin-top: 20px;
   border-radius: 10px;
@@ -62,7 +63,7 @@
 
 .location-icon {
   font-size: 24px;
-  color: #4a148c;
+  color: #4285F4;
   margin-right: 10px;
 }
 
@@ -101,7 +102,7 @@
 .social-icon {
   margin: 0 10px;
   font-size: 24px;
-  color: #4a148c;
+  color: #4285F4;
   transition: color 0.3s;
 }
 

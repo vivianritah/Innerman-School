@@ -6,7 +6,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const navigate = useNavigate(); // Using useNavigate hook for navigation
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,13 +31,12 @@ const Login = () => {
       console.log('Login successful:', data);
       alert('Login successful!');
       localStorage.setItem('access_token', data.access_token);
-      localStorage.setItem('user_id', data.user_id); // Storing user_id in localStorage
+      localStorage.setItem('user_id', data.user_id);
 
-      // Redirect logic based on user type or condition
       if (data.user_type === 'admin') {
-        navigate('/dashboard'); // Redirect to admin dashboard
+        navigate('/dashboard');
       } else {
-        navigate('/applications'); // Redirect to user applications page
+        navigate('/applications');
       }
     } catch (error) {
       console.error('Error logging in:', error);

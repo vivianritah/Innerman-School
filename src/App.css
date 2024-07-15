@@ -49,40 +49,6 @@
   text-decoration: none;
 }
 
-.navbar {
-  background-color: black;
-  padding: 1rem;
-  position: fixed;  /* Fix the navbar to the top */
-  top: 0;           /* Position it at the top */
-  width: 100%;      /* Ensure it spans the full width of the page */
-  z-index: 1000;    /* Ensure it's above other content */
-}
-
-/* Adjust the content area to not be hidden by the navbar */
-.body, .content {
-  padding-top: 60px; /* Adjust based on the height of your navbar */
-}
-
-.nav-list {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: space-around; /* Space items evenly */
-}
-
-.nav-item {
-  margin-right: 2rem;
-}
-
-.nav-item a {
-  color: white;
-  text-decoration: none;
-}
-
-.nav-item a:hover {
-  text-decoration: underline;
-}
 
 /* Other styles remain unchanged */
 .App-header {

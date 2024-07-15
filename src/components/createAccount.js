@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './createAccount.css'; 
+import { useNavigate } from 'react-router-dom';
 
 function CreateAccount() {
   const [formData, setFormData] = useState({
@@ -9,6 +10,8 @@ function CreateAccount() {
     password: '',
     user_type: ''
   });
+
+  const navigate = useNavigate(); 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,6 +39,8 @@ function CreateAccount() {
 
       const data = await response.json();
       console.log('Success:', data);
+      alert('Account created successfully');
+      navigate('/login');
     } catch (error) {
       console.error('Error:', error);
     }

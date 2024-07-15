@@ -1,0 +1,53 @@
+/* Navbar styles */
+.navbar {
+    background-color: rgb(188, 174, 228);
+    padding: 1rem;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .navbar-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px; /* Optional: Limit the max width of the navbar content */
+  }
+  
+  /* Logo styles */
+  .logo {
+    height: 100px;
+    width:  115px; /* Adjust the logo height as needed */
+  }
+  
+  /* Adjust the content area to not be hidden by the navbar */
+  .body, .content {
+    padding-top: 60px; /* Adjust based on the height of your navbar */
+  }
+  
+  /* Navigation list styles */
+  .nav-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center; /* Align items vertically centered */
+    gap: 2rem; /* Space items evenly */
+  }
+  
+  /* Navigation item styles */
+  .nav-item a {
+    color: #4285F4;
+    text-decoration: none;
+    font-size: 20px; /* Adjust font size as needed */
+  }
+  
+  .nav-item a:hover {
+    text-decoration: underline;
+  }
+  
