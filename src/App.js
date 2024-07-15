@@ -29,6 +29,7 @@ function App() {
       {!isDashboardPage && (
         <>
           <header className="App-header">
+            <NavBar/>
             <HeaderSlideshow />
             <div className="header-content">
               <div className="header-flex-container">
@@ -38,7 +39,7 @@ function App() {
               </div>
             </div>
           </header>
-          <NavBar className="navbar" />
+          
         </>
       )}
       <div className="content">
