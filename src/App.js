@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import Home from './components/home';
 import NavBar from './components/navigation';
 import About from './components/about';
@@ -21,46 +21,57 @@ import CreateAccountButton from './components/createAccountButton';
 
 function App() {
   const isLoggedIn = !!localStorage.getItem('access_token'); // Check if user is logged in
+  const location = useLocation();
+  const isDashboardPage = location.pathname === '/dashboard';
 
   return (
-    <Router>
-      <div className="App">
-        <header className="App-header">
-          <HeaderSlideshow />
-          <div className="header-content">
-            <div className="header-flex-container">
-              <p className="innerman-school">INNERMAN PRE & PRIMARY SCHOOL</p>
-              <CreateAccountButton className="create-account-button" />
-              <LoginButton className="login-button" />
+    <div className="App">
+      {!isDashboardPage && (
+        <>
+          <header className="App-header">
+            <HeaderSlideshow />
+            <div className="header-content">
+              <div className="header-flex-container">
+                <p className="innerman-school">INNERMAN PRE & PRIMARY SCHOOL</p>
+                <CreateAccountButton className="create-account-button" />
+                <LoginButton className="login-button" />
+              </div>
             </div>
-          </div>
-        </header>
-        <NavBar className="navbar" />
-        <div className="content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/admissions" element={<Admissions />} />
-            {isLoggedIn ? (
-              <>
-                <Route path="/applications" element={<Applications />} />
-                <Route path="/dashboard" element={<Dashboard />} />
-              </>
-            ) : (
-              <Navigate to="/login" />
-            )}
-            <Route path="/gallery" element={<Gallery />} />
+          </header>
+          <NavBar className="navbar" />
+        </>
+      )}
+      <div className="content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/admissions" element={<Admissions />} />
+          {isLoggedIn ? (
+            <>
+              <Route path="/applications" element={<Applications />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+            </>
+          ) : (
             <Route path="/login" element={<Login />} />
-            <Route path="/createAccount" element={<CreateAccount />} />
-            <Route path="*" element={<NoPage />} />
-            <Route path="/" element={<Home />} />
-          </Routes>
-        </div>
-        <Footer />
+          )}
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/createAccount" element={<CreateAccount />} />
+          <Route path="*" element={<NoPage />} />
+        </Routes>
       </div>
+      {!isDashboardPage && <Footer />}
+    </div>
+  );
+}
+
+function AppWrapper() {
+  return (
+    <Router>
+      <App />
     </Router>
   );
 }
 
-export default App;
+export default AppWrapper;

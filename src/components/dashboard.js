@@ -1,7 +1,6 @@
+// Dashboard.js
 import React, { useState, useEffect } from 'react';
 import './dashboard.css';
-import { Bar, Line } from 'react-chartjs-2';
-import 'chart.js/auto';
 
 const Dashboard = () => {
   const [events, setEvents] = useState([]);
@@ -59,35 +58,12 @@ const Dashboard = () => {
   };
 
   const filteredUsers = users.filter(user =>
-    user.name.toLowerCase().includes(searchQuery.toLowerCase())
+    `${user.first_name} ${user.last_name}`.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const filteredApplications = applications.filter(application =>
-    application.user_name.toLowerCase().includes(searchQuery.toLowerCase())
+    `${application.first_name} ${application.last_name}`.toLowerCase().includes(searchQuery.toLowerCase())
   );
-
-  const userChartData = {
-    labels: users.map(user => user.name),
-    datasets: [
-      {
-        label: 'Authenticated Users',
-        data: users.map(user => user.authenticated ? 1 : 0),
-        backgroundColor: 'rgba(75,192,192,1)',
-      }
-    ]
-  };
-
-  const applicationChartData = {
-    labels: applications.map(application => application.date),
-    datasets: [
-      {
-        label: 'Applications Over Time',
-        data: applications.map(application => application.count),
-        borderColor: 'rgba(75,192,192,1)',
-        fill: false,
-      }
-    ]
-  };
 
   return (
     <div className="dashboard">
@@ -106,49 +82,96 @@ const Dashboard = () => {
 
         <div className="dashboard-section">
           <h3>Users</h3>
-          <ul className="user-list">
-            {filteredUsers.map((user, index) => (
-              <li key={index} className="user-item">
-                <strong>{user.name}</strong> - {user.email}
-              </li>
-            ))}
-          </ul>
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>User Type</th>
+                <th>Admin</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredUsers.map((user, index) => (
+                <tr key={index}>
+                  <td>{user.first_name}</td>
+                  <td>{user.last_name}</td>
+                  <td>{user.email}</td>
+                  <td>{user.user_type}</td>
+                  <td>{user.isadmin ? 'Yes' : 'No'}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
 
         <div className="dashboard-section">
           <h3>Applications</h3>
-          <ul className="application-list">
-            {filteredApplications.map((application, index) => (
-              <li key={index} className="application-item">
-                <strong>{application.user_name}</strong> - {application.date}
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="dashboard-section">
-          <h3>Authenticated Users</h3>
-          <Bar data={userChartData} />
-        </div>
-
-        <div className="dashboard-section">
-          <h3>Applications Over Time</h3>
-          <Line data={applicationChartData} />
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Other Name</th>
+                <th>Date of Birth</th>
+                <th>Previous School</th>
+                <th>Math Grade</th>
+                <th>English Grade</th>
+                <th>Current Level</th>
+                <th>Admission Year</th>
+                <th>Guardian Name</th>
+                <th>Guardian Contact</th>
+                <th>Guardian Email</th>
+                <th>Created At</th>
+                <th>Updated At</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredApplications.map((application, index) => (
+                <tr key={index}>
+                  <td>{application.first_name}</td>
+                  <td>{application.last_name}</td>
+                  <td>{application.other_name || 'N/A'}</td>
+                  <td>{new Date(application.date_of_birth).toLocaleDateString()}</td>
+                  <td>{application.name_of_previous_school}</td>
+                  <td>{application.previous_math_grade}</td>
+                  <td>{application.previous_english_grade}</td>
+                  <td>{application.current_level}</td>
+                  <td>{application.year_of_admission}</td>
+                  <td>{application.guardian_full_name || 'N/A'}</td>
+                  <td>{application.guardian_contact || 'N/A'}</td>
+                  <td>{application.guardian_email || 'N/A'}</td>
+                  <td>{new Date(application.created_at).toLocaleDateString()}</td>
+                  <td>{new Date(application.updated_at).toLocaleDateString()}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
 
         <div className="dashboard-section">
           <h3>Events</h3>
-          <ul className="event-list">
-            {events.map((event, index) => (
-              <li key={index} className="event-item">
-                <strong>{event.date}</strong> - {event.name}
-                <br />
-                <span>{event.description}</span>
-                <br />
-                <span>Location: {event.location}</span>
-              </li>
-            ))}
-          </ul>
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Location</th>
+              </tr>
+            </thead>
+            <tbody>
+              {events.map((event, index) => (
+                <tr key={index}>
+                  <td>{new Date(event.date).toLocaleDateString()}</td>
+                  <td>{event.name}</td>
+                  <td>{event.description}</td>
+                  <td>{event.location}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
