@@ -1,118 +1,110 @@
-import React, { useState } from 'react';
-import './createAccount.css'; 
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import './home.css';
+import AchievementImage from '../images/background3.jpg';
+import FacilitiesImage from '../images/background5.jpg';
+import CommunityImage from '../images/image7.jpg';
 
-function CreateAccount() {
-  const [formData, setFormData] = useState({
-    first_name: '',
-    last_name: '',
-    email: '',
-    password: '',
-    user_type: ''
-  });
+const Home = () => {
+  const [data, setData] = useState([]);
 
-  const navigate = useNavigate(); 
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log('Form data submitted:', formData);
-
-    try {
-      const response = await fetch('http://127.0.0.1:5000/api/v1/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+  useEffect(() => {
+    fetch('http://127.0.0.1:5000/api/v1/events/get_event', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcyMTM4NzIxNSwianRpIjoiMjllN2JlMmQtMWUwZS00YjRkLWFjMzctYzY1MDAyMTAxMjRiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6OCwibmJmIjoxNzIxMzg3MjE1LCJjc3JmIjoiOWZiNTY5NzMtNDdhMi00ZTlhLWEyYjMtNTU4MWExMzAxN2NlIiwiZXhwIjoxNzIxMzg4MTE1fQ.lB7O0jajTMb2uJIQAJpOWSQkZPIWgCKNlu63fiXVhys`, // Replace with your token
+      },
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        return response.json().then(errorData => {
+          throw new Error(errorData.message || 'An error occurred');
+        });
+      })
+      .then(data => {
+        if (Array.isArray(data)) {
+          setData(data);
+        } else {
+          console.error('Unexpected data format:', data);
+          setData([]);
+        }
+      })
+      .catch(err => {
+        console.log('Fetch error:', err);
+        setData([]);
       });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error('Error:', errorData);
-        return;
-      }
-
-      const data = await response.json();
-      console.log('Success:', data);
-      alert('Account created successfully');
-      navigate('/login');
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
+  }, []);
 
   return (
-    <div className="create-account">
-      <h2>Create Account</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="first_name">First Name:</label>
-          <input
-            type="text"
-            id="first_name"
-            name="first_name"
-            value={formData.first_name}
-            onChange={handleChange}
-            required
-          />
+    <div className="home-page">
+      <section className="hero">
+        <h1>Welcome to Innerman Pre & Primary School</h1>
+        <p>Empowering young minds for a brighter future.</p>
+      </section>
+
+      <section className="testimonials">
+        <h2>What Our Community Says</h2>
+        <blockquote>
+          "Innerman School has provided my children with a well-rounded education and a caring environment."
+          <cite>- Parent of a Grade 5 student</cite>
+        </blockquote>
+      </section>
+
+      <section className="highlights">
+        <div className="highlight">
+          <img src={AchievementImage} alt="Our Achievements" />
+          <h2>Our Achievements</h2>
+          <p>We are proud of our pupils' academic and extracurricular accomplishments.</p>
         </div>
-        <div>
-          <label htmlFor="last_name">Last Name:</label>
-          <input
-            type="text"
-            id="last_name"
-            name="last_name"
-            value={formData.last_name}
-            onChange={handleChange}
-            required
-          />
+        <div className="highlight">
+          <img src={FacilitiesImage} alt="Facilities" />
+          <h2>State-of-the-Art Facilities</h2>
+          <p>Explore our modern classrooms, dormitories, and sports facilities.</p>
         </div>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
+        <div className="highlight">
+          <img src={CommunityImage} alt="Community" />
+          <h2>Community Engagement</h2>
+          <p>Join our community events and be a part of our family.</p>
         </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="user_type">User Type:</label>
-          <select
-            id="user_type"
-            name="user_type"
-            value={formData.user_type}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select User Type</option>
-            <option value="student">Student</option>
-            <option value="teacher">Teacher</option>
-            <option value="admin">Admin</option>
-          </select>
-        </div>
-        <button type="submit">Create Account</button>
-      </form>
+      </section>
+
+      <div className="events-section">
+        <h2>Upcoming Events</h2>
+        <ul>
+          {data.length > 0 ? (
+            data.map((event, index) => {
+              const eventDate = new Date(event.date);
+              const day = eventDate.getDate();
+              const month = eventDate.toLocaleString('default', { month: 'short' });
+              const year = eventDate.getFullYear();
+
+              return (
+                <li key={index} className="event-item">
+                  <div className="event-date">
+                    <div className="month">{month}</div>
+                    <div className="day">{day}</div>
+                    <div className="year">{year}</div>
+                  </div>
+                  <div className="event-details">
+                    <strong>{event.name}</strong>
+                    <p>{event.description}</p>
+                    <p className="event-time">
+                      {eventDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    </p>
+                    <p className="event-location">{event.location}</p>
+                  </div>
+                </li>
+              );
+            })
+          ) : (
+            <p>No events available</p>
+          )}
+        </ul>
+      </div>
     </div>
   );
-}
+};
 
-export default CreateAccount;
+export default Home;

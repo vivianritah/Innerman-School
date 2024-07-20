@@ -1,144 +1,42 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import './home.css';
 import AchievementImage from '../images/background3.jpg';
 import FacilitiesImage from '../images/background5.jpg';
 import CommunityImage from '../images/image7.jpg';
 
 const Home = () => {
-  const { eventId } = useParams();
-  const [event, setEvent] = useState(null);
-  const [events, setEvents] = useState([]);
-  const [loadingEvent, setLoadingEvent] = useState(false);
-  const [loadingEvents, setLoadingEvents] = useState(false);
-  const [errorEvent, setErrorEvent] = useState(null);
-  const [errorEvents, setErrorEvents] = useState(null);
-
-  const refreshAccessToken = async () => {
-    try {
-      const refreshToken = localStorage.getItem('refresh_token');
-      const response = await axios.post('http://127.0.0.1:5000/api/v1/auth/refresh', {
-        refresh_token: refreshToken,
-      }, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      const { access_token } = response.data;
-      localStorage.setItem('access_token', access_token);
-      return access_token;
-    } catch (error) {
-      console.error('Error refreshing token:', error);
-      throw new Error('Unable to refresh token');
-    }
-  };
-
-  const fetchEvent = useCallback(async (id) => {
-    setLoadingEvent(true);
-    try {
-      let access_token = localStorage.getItem('access_token');
-      if (!access_token) {
-        throw new Error('No token found');
-      }
-      console.log('Access Token:', access_token); // Log the token for debugging
-  
-      const response = await axios.get(`http://127.0.0.1:5000/api/v1/events/${id}`, {
-        headers: {
-          'Authorization': `Bearer ${access_token}`,
-          'Content-Type': 'application/json',
-        },
-        withCredentials: true,
-      });
-  
-      setEvent(response.data);
-    } catch (error) {
-      if (error.response && error.response.status === 401) {
-        try {
-          const newAccessToken = await refreshAccessToken();
-          const response = await axios.get(`http://127.0.0.1:5000/api/v1/events/${id}`, {
-            headers: {
-              'Authorization': `Bearer ${newAccessToken}`,
-              'Content-Type': 'application/json',
-            },
-            withCredentials: true,
-          });
-          setEvent(response.data);
-        } catch (refreshError) {
-          setErrorEvent(refreshError.message);
-          console.error('Error refreshing token and fetching event:', refreshError);
-        }
-      } else {
-        setErrorEvent(error.message);
-        console.error('Error fetching event:', error);
-      }
-    } finally {
-      setLoadingEvent(false);
-    }
-  }, []);
-
-  const fetchEvents = useCallback(async () => {
-    setLoadingEvents(true);
-    try {
-      let access_token = localStorage.getItem('access_token');
-      if (!access_token) {
-        throw new Error('No token found');
-      }
-      console.log('Access Token:', access_token); // Log the token for debugging
-  
-      const response = await axios.get('http://127.0.0.1:5000/api/v1/events/get_event', {
-        headers: {
-          'Authorization': `Bearer ${access_token}`,
-          'Content-Type': 'application/json',
-        },
-        withCredentials: true,
-      });
-  
-      setEvents(response.data);
-    } catch (error) {
-      if (error.response && error.response.status === 401) {
-        try {
-          const newAccessToken = await refreshAccessToken();
-          const response = await axios.get('http://127.0.0.1:5000/api/v1/events/get_event', {
-            headers: {
-              'Authorization': `Bearer ${newAccessToken}`,
-              'Content-Type': 'application/json',
-            },
-            withCredentials: true,
-          });
-          setEvents(response.data);
-        } catch (refreshError) {
-          setErrorEvents(refreshError.message);
-          console.error('Error refreshing token and fetching events:', refreshError);
-        }
-      } else {
-        setErrorEvents(error.message);
-        console.error('Error fetching events:', error);
-      }
-    } finally {
-      setLoadingEvents(false);
-    }
-  }, []);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    if (eventId) {
-      fetchEvent(eventId);
-    }
-    fetchEvents();
-  }, [eventId, fetchEvent, fetchEvents]);
-
-  const formatDate = (dateString) => {
-    try {
-      const date = new Date(dateString);
-      const day = date.getDate();
-      const month = date.toLocaleString('default', { month: 'short' });
-      const year = date.getFullYear();
-      return { day, month, year };
-    } catch (error) {
-      console.error('Invalid date format:', dateString);
-      return { day: 'N/A', month: 'N/A', year: 'N/A' };
-    }
-  };
+    fetch('http://127.0.0.1:5000/api/v1/events/get_event', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json', // Add this line if needed
+      },
+    })
+      .then( response => {
+        if (response.ok) {
+          return response.json();
+        }
+        return response.json().then(errorData => {
+          throw new Error(errorData.message || 'An error occurred');
+        });
+      })
+      .then(data => {
+        // Check if data is an array and set state accordingly
+        if (Array.isArray(data)) {
+          setData(data);
+        } else {
+          console.error('Unexpected data format:', data);
+          setData([]); // Set an empty array if the format is incorrect
+        }
+      })
+      .catch(err => {
+        console.log('Fetch error:', err);
+        setData([]); // Set an empty array on fetch error
+      });
+  }, []);
 
   return (
     <div className="home-page">
@@ -173,38 +71,16 @@ const Home = () => {
         </div>
       </section>
 
-      {eventId && (
-        <div className="event-details-section">
-          {loadingEvent ? (
-            <p>Loading event details...</p>
-          ) : errorEvent ? (
-            <p>Error: {errorEvent}</p>
-          ) : (
-            event && (
-              <div className="event-details">
-                <h2>Event Details</h2>
-                <strong>{event.name}</strong>
-                <p>{event.description}</p>
-                <p className="event-time">
-                  {new Date(event.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                </p>
-                <p className="event-location">{event.location}</p>
-              </div>
-            )
-          )}
-        </div>
-      )}
-
       <div className="events-section">
         <h2>Upcoming Events</h2>
-        {loadingEvents ? (
-          <p>Loading events...</p>
-        ) : errorEvents ? (
-          <p>Error: {errorEvents}</p>
-        ) : (
-          <ul>
-            {events.map((event, index) => {
-              const { day, month, year } = formatDate(event.date);
+        <ul>
+          {data.length > 0 ? (
+            data.map((event, index) => {
+              const eventDate = new Date(event.date);
+              const day = eventDate.getDate();
+              const month = eventDate.toLocaleString('default', { month: 'short' });
+              const year = eventDate.getFullYear();
+
               return (
                 <li key={index} className="event-item">
                   <div className="event-date">
@@ -216,15 +92,17 @@ const Home = () => {
                     <strong>{event.name}</strong>
                     <p>{event.description}</p>
                     <p className="event-time">
-                      {new Date(event.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                      {eventDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     </p>
                     <p className="event-location">{event.location}</p>
                   </div>
                 </li>
               );
-            })}
-          </ul>
-        )}
+            })
+          ) : (
+            <p>No events available</p>
+          )}
+        </ul>
       </div>
     </div>
   );

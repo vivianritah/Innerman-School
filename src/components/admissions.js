@@ -1,81 +1,16 @@
+import React, { useState, useEffect } from 'react';
+import './admissions.css';
 
-
-import React from 'react';
-import './admissions.css'; // Import the custom styles
-
-// Fees structure for each class
-const feesData = [
-  {
-    class: 'Baby',
-    fees: {
-      day: '286,000 UGX', // Tuition Fees for Day scholars
-      boarding: '740,000 UGX', // Tuition Fees for Boarders
-      registration: '30,000 UGX', // General Registration Fees
-      uniformBoarding: '256,000 UGX', // Uniform Fees for Boarders
-      uniformDay: '166,000',
-    },
-  },
-  {
-    class: 'Middle to Top',
-    fees: {
-      day: '295,000 UGX', // Tuition Fees for Day scholars
-      boarding: '750,000 UGX', // Tuition Fees for Boarders
-      registration: '30,000 UGX', // General Registration Fees
-      uniformBoarding: '256,000 UGX', // Uniform Fees for Boarders
-      uniformDay: '166,000',
-    },
-  },
-  {
-    class: 'P1 to P2',
-    fees: {
-      day: '317,000',
-      boarding: '715,000',
-      registration: '30,000',
-      uniformBoarding: '270,000',
-      uniformDay: '176,000',
-    }
-  },
-  {
-    class: 'P3',
-    fees: {
-      day: '330,000',
-      boarding: '720,000',
-      registration: '30,000',
-      uniformBoarding: '270,000',
-      uniformDay: '176,000',
-    }
-  },
-  {
-    class: 'P4 to P6',
-    fees: {
-      day: '410,000',
-      boarding: '730,000',
-      registration: '30,000',
-      uniformBoarding: '270,000',
-      uniformDay: '176,000',
-
-    }
-  },
-  {
-    class: 'P7',
-    fees: {
-      day: '465,000',
-      boarding: '760,000',
-      registration: '30,000',
-      uniformBoarding: '270,000',
-      uniformDay: '176,000',
-    }
-  },
-  {
-    class: 'P.7 PLE (UNEB)',
-    fees: {
-      registration: '150,000 UGX', // UNEB Registration Fees
-    },
-  },
-];
-
-// Component to render the fees structure
 function Admissions() {
+  const [data, setData] = useState([]);
+
+  useEffect(()=>{
+    fetch('http://127.0.0.1:5000/api/v1/admissions/')
+    .then(response => response.json())
+    .then(data => setData(data))
+    .catch(err => console.log(err))
+  }, [])
+
   return (
     <div className="admissions">
       <h1>Fees Structure for Innerman Pre & Primary School</h1>
@@ -91,16 +26,22 @@ function Admissions() {
           </tr>
         </thead>
         <tbody>
-          {feesData.map((item, index) => (
-            <tr key={index}>
-              <td>{item.class}</td>
-              <td>{item.fees.day || '-'}</td>
-              <td>{item.fees.boarding || '-'}</td>
-              <td>{item.fees.registration}</td>
-              <td>{item.fees.uniformBoarding || '-'}</td>
-              <td>{item.fees.uniformDay || '-'}</td>
+          {data.length === 0 ? (
+            <tr>
+              <td colSpan="6">No fees data available.</td>
             </tr>
-          ))}
+          ) : (
+            data.map((item, index) => (
+              <tr key={index}>
+                <td>{item.class}</td>
+                <td>{item.fees.day || '-'}</td>
+                <td>{item.fees.boarding || '-'}</td>
+                <td>{item.fees.registration || '-'}</td>
+                <td>{item.fees.uniformDay || '-'}</td>
+                <td>{item.fees.uniformBoarding || '-'}</td>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
     </div>

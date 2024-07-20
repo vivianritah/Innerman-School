@@ -68,7 +68,7 @@
   font-size: 15px;
   cursor: pointer;
   transition: background-color 0.3s;
-  
+  text-decoration: none; /* Remove underline from link */
 }
 
 

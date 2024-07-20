@@ -1,11 +1,11 @@
-// Users.js
+
 import React, { useState, useEffect } from 'react';
 
 const Users = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    fetch('http://127.0.0.1:5000/api/v1/users', {
+    fetch('http://127.0.0.1:5000/api/v1/auth/users', {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
         'Content-Type': 'application/json'
