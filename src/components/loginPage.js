@@ -6,11 +6,13 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setSuccessMessage('');
 
     try {
       const response = await fetch('http://127.0.0.1:5000/api/v1/auth/login', {
@@ -29,15 +31,17 @@ const Login = () => {
       }
 
       console.log('Login successful:', data);
-      alert('Login successful!');
+      setSuccessMessage('Login successful!');
       localStorage.setItem('access_token', data.access_token);
       localStorage.setItem('user_id', data.user_id);
 
-      if (data.user_type === 'admin') {
-        navigate('/dashboard');
-      } else {
-        navigate('/applications');
-      }
+      setTimeout(() => {
+        if (data.user_type === 'admin') {
+          navigate('/dashboard');
+        } else {
+          navigate('/applications');
+        }
+      }, 5000); // Wait for 5 seconds before navigating
     } catch (error) {
       console.error('Error logging in:', error);
       setError('An error occurred during login.');
@@ -49,6 +53,7 @@ const Login = () => {
       <h2>Login</h2>
       <form className="login-form" onSubmit={handleSubmit}>
         {error && <p className="error-message">{error}</p>}
+        {successMessage && <p className="success-message">{successMessage}</p>}
         <label>
           Email:
           <input

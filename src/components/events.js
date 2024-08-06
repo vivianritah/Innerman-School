@@ -1,109 +1,65 @@
-const schoolEvents = [
-    {
-        date: "2024-01-15",
-        eventName: "Term 1 Starts",
-        description: "First day of Term 1 for the new academic year.",
-        type: "Academic",
-        location: "InnerMan Pre and Primary School"
-    },
-    {
-        date: "2024-02-16",
-        eventName: "Parents-Teachers Meeting",
-        description: "A meeting to discuss students' performance and address any concerns.",
-        type: "Meeting",
-        location: "School Hall"
-    },
-    {
-        date: "2024-03-08",
-        eventName: "Women's Day",
-        description: "Public holiday to celebrate International Women's Day.",
-        type: "Holiday",
-        location: "Uganda"
-    },
-    {
-        date: "2024-04-12",
-        eventName: "Term 1 Ends",
-        description: "Last day of Term 1 before holidays.",
-        type: "Academic",
-        location: "InnerMan Pre and Primary School"
-    },
-    {
-        date: "2024-04-26",
-        eventName: "Speech Day",
-        description: "Annual speech day to recognize students' achievements.",
-        type: "Event",
-        location: "School Auditorium"
-    },
-    {
-        date: "2024-05-06",
-        eventName: "Term 2 Starts",
-        description: "First day of Term 2.",
-        type: "Academic",
-        location: "InnerMan Pre and Primary School"
-    },
-    {
-        date: "2024-06-03",
-        eventName: "Martyrs' Day",
-        description: "Public holiday commemorating the Uganda Martyrs.",
-        type: "Holiday",
-        location: "Uganda"
-    },
-    {
-        date: "2024-06-09",
-        eventName: "Heroes' Day",
-        description: "Public holiday to honor the country's heroes.",
-        type: "Holiday",
-        location: "Uganda"
-    },
-    {
-        date: "2024-08-23",
-        eventName: "Term 2 Ends",
-        description: "Last day of Term 2 before holidays.",
-        type: "Academic",
-        location: "InnerMan Pre and Primary School"
-    },
-    {
-        date: "2024-09-09",
-        eventName: "Independence Day",
-        description: "Public holiday to celebrate Uganda's Independence.",
-        type: "Holiday",
-        location: "Uganda"
-    },
-    {
-        date: "2024-09-30",
-        eventName: "Term 3 Starts",
-        description: "First day of Term 3.",
-        type: "Academic",
-        location: "InnerMan Pre and Primary School"
-    },
-    {
-        date: "2024-10-24",
-        eventName: "Staff Development Day",
-        description: "No classes; teachers' professional development.",
-        type: "Staff",
-        location: "School Hall"
-    },
-    {
-        date: "2024-11-22",
-        eventName: "Sports Day",
-        description: "Annual sports day with various competitions.",
-        type: "Event",
-        location: "School Field"
-    },
-    {
-        date: "2024-12-20",
-        eventName: "Term 3 Ends",
-        description: "Last day of Term 3 and the academic year.",
-        type: "Academic",
-        location: "InnerMan Pre and Primary School"
-    },
-    {
-        date: "2024-12-25",
-        eventName: "Christmas Day",
-        description: "Public holiday celebrating Christmas.",
-        type: "Holiday",
-        location: "Uganda"
-    }
-];
+import React, { useState, useEffect } from 'react';
+import './events.css'; // Make sure you create and import a CSS file for styling
 
-export default schoolEvents;
+function Events() {
+  const [eventsData, setEventsData] = useState([]);
+  const [error, setError] = useState(null); // Add error state
+
+  useEffect(() => {
+    const token = localStorage.getItem('jwtToken');
+
+    fetch('http://127.0.0.1:5000/api/v1/events/get_event', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then(response => {
+        if (!response.ok) {
+          // Handle HTTP errors
+          return response.json().then(errorData => {
+            throw new Error(errorData.message || 'An error occurred');
+          });
+        }
+        return response.json();
+      })
+      .then(data => setEventsData(data))
+      .catch(err => setError(err.message)); // Update error state
+  }, []);
+
+  return (
+    <div className="events-section">
+      <h2>Upcoming Events</h2>
+      {error && <p className="error">{error}</p>} {/* Display error if present */}
+      <ul>
+        {eventsData.length > 0 ? (
+          eventsData.map((event, index) => {
+            const eventDate = new Date(event.date);
+            const isoDate = eventDate.toISOString().split('T')[0]; // Get the date part in ISO format
+
+            return (
+              <li key={index} className="event-item">
+                <div className="event-date">
+                  <div className="iso-date">{isoDate}</div>
+                </div>
+                <div className="event-details">
+                  <strong>{event.name}</strong>
+                  <p>{event.description}</p>
+                  <p className="event-time">
+                    {eventDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                  </p>
+                  <p className="event-location">{event.location}</p>
+                </div>
+              </li>
+            );
+          })
+        ) : (
+          <p>No events available</p>
+        )}
+      </ul>
+    </div>
+  );
+}
+
+export default Events;

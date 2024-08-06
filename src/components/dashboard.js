@@ -47,15 +47,6 @@ const Dashboard = () => {
       })
       .catch(error => {
         console.error('Error fetching users:', error);
-        if (error.response) {
-          console.error('Response data:', error.response.data);
-          console.error('Response status:', error.response.status);
-          console.error('Response headers:', error.response.headers);
-        } else if (error.request) {
-          console.error('Request data:', error.request);
-        } else {
-          console.error('Error message:', error.message);
-        }
       });
   };
 
@@ -177,8 +168,6 @@ const Dashboard = () => {
       console.error('Error updating fees structure:', error);
     }
   };
-  
-  
 
   const filteredUsers = users.filter(user =>
     `${user.first_name} ${user.last_name}`.toLowerCase().includes(searchQuery.toLowerCase())
@@ -262,9 +251,9 @@ const Dashboard = () => {
                   <td>{application.previous_english_grade}</td>
                   <td>{application.current_level}</td>
                   <td>{application.year_of_admission}</td>
-                  <td>{application.guardian_full_name || 'N/A'}</td>
-                  <td>{application.guardian_contact || 'N/A'}</td>
-                  <td>{application.guardian_email || 'N/A'}</td>
+                  <td>{application.guardian_full_name}</td>
+                  <td>{application.guardian_contact}</td>
+                  <td>{application.guardian_email}</td>
                   <td>{new Date(application.created_at).toLocaleDateString()}</td>
                   <td>{new Date(application.updated_at).toLocaleDateString()}</td>
                 </tr>
@@ -274,7 +263,7 @@ const Dashboard = () => {
         </div>
 
         <div className="dashboard-section">
-          <h3>Events</h3>
+          <h3>Upcoming Events</h3>
           <table className="data-table">
             <thead>
               <tr>
@@ -282,13 +271,13 @@ const Dashboard = () => {
                 <th>Name</th>
                 <th>Description</th>
                 <th>Location</th>
-                <th>Actions</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
               {events.map((event, index) => (
                 <tr key={index}>
-                  <td>{new Date(event.date).toLocaleDateString()}</td>
+                  <td>{event.date}</td>
                   <td>{event.name}</td>
                   <td>{event.description}</td>
                   <td>{event.location}</td>
@@ -299,37 +288,45 @@ const Dashboard = () => {
               ))}
             </tbody>
           </table>
-          <div className="add-event-form">
-            <h3>Add New Event</h3>
+
+          <h4>Add Event</h4>
+          <form onSubmit={e => {
+            e.preventDefault();
+            addEvent();
+          }}>
             <input
               type="date"
               name="date"
               value={newEvent.date}
               onChange={handleInputChange}
+              required
             />
             <input
               type="text"
               name="name"
-              placeholder="Event Name"
               value={newEvent.name}
               onChange={handleInputChange}
+              placeholder="Event Name"
+              required
             />
             <input
               type="text"
               name="description"
-              placeholder="Event Description"
               value={newEvent.description}
               onChange={handleInputChange}
+              placeholder="Event Description"
+              required
             />
             <input
               type="text"
               name="location"
-              placeholder="Event Location"
               value={newEvent.location}
               onChange={handleInputChange}
+              placeholder="Event Location"
+              required
             />
-            <button onClick={addEvent}>Add Event</button>
-          </div>
+            <button type="submit">Add Event</button>
+          </form>
         </div>
 
         <div className="dashboard-section">
@@ -338,78 +335,91 @@ const Dashboard = () => {
             <thead>
               <tr>
                 <th>Class</th>
-                <th>Tuition Fees (Day)</th>
-                <th>Tuition Fees (Boarding)</th>
+                <th>Day Fees</th>
+                <th>Boarding Fees</th>
                 <th>Registration Fees</th>
-                <th>Day Uniform Fees</th>
-                <th>Boarding Uniform Fees</th>
-                <th>Actions</th>
+                <th>Uniform Day</th>
+                <th>Uniform Boarding</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              {fees.length === 0 ? (
-                <tr>
-                  <td colSpan="7">No fees data available.</td>
+              {fees.map((fee, index) => (
+                <tr key={index}>
+                  <td>{fee.class}</td>
+                  <td>{fee.fees.day}</td>
+                  <td>{fee.fees.boarding}</td>
+                  <td>{fee.fees.registration}</td>
+                  <td>{fee.fees.uniformDay}</td>
+                  <td>{fee.fees.uniformBoarding}</td>
+                  <td>
+                    <button onClick={() => editFees(index)}>Edit</button>
+                  </td>
                 </tr>
-              ) : (
-                fees.map((item, index) => (
-                  <tr key={index}>
-                    <td>{item.class}</td>
-                    <td>{item.fees.day || '-'}</td>
-                    <td>{item.fees.boarding || '-'}</td>
-                    <td>{item.fees.registration || '-'}</td>
-                    <td>{item.fees.uniformDay || '-'}</td>
-                    <td>{item.fees.uniformBoarding || '-'}</td>
-                    <td>
-                      {editIndex === index ? (
-                        <div>
-                          <input
-                            type="text"
-                            name="class_name"
-                            value={editedFees.class_name}
-                            onChange={handleEditInputChange}
-                          />
-                          <input
-                            type="text"
-                            name="day"
-                            value={editedFees.day}
-                            onChange={handleEditInputChange}
-                          />
-                          <input
-                            type="text"
-                            name="boarding"
-                            value={editedFees.boarding}
-                            onChange={handleEditInputChange}
-                          />
-                          <input
-                            type="text"
-                            name="registration"
-                            value={editedFees.registration}
-                            onChange={handleEditInputChange}
-                          />
-                          <input
-                            type="text"
-                            name="uniformDay"
-                            value={editedFees.uniformDay}
-                            onChange={handleEditInputChange}
-                          />
-                          <input
-                            type="text"
-                            name="uniformBoarding"
-                            value={editedFees.uniformBoarding}
-                            onChange={handleEditInputChange}
-                          />
-                          <button onClick={() => updateFees(index)}>Save</button>
-                        </div>
-                      ) : (
-                        <button onClick={() => editFees(index)}>Edit</button>
-                      )}
-                    </td>
-                  </tr>
-                ))
-              )}
+              ))}
             </tbody>
           </table>
+
+          {editIndex !== -1 && (
+            <div className="edit-form">
+              <h4>Edit Fees</h4>
+              <form onSubmit={e => {
+                e.preventDefault();
+                updateFees(editIndex);
+              }}>
+                <input
+                  type="text"
+                  name="class_name"
+                  value={editedFees.class_name}
+                  onChange={handleEditInputChange}
+                  placeholder="Class"
+                  required
+                />
+                <input
+                  type="number"
+                  name="day"
+                  value={editedFees.day}
+                  onChange={handleEditInputChange}
+                  placeholder="Day Fees"
+                  required
+                />
+                <input
+                  type="number"
+                  name="boarding"
+                  value={editedFees.boarding}
+                  onChange={handleEditInputChange}
+                  placeholder="Boarding Fees"
+                  required
+                />
+                <input
+                  type="number"
+                  name="registration"
+                  value={editedFees.registration}
+                  onChange={handleEditInputChange}
+                  placeholder="Registration Fees"
+                  required
+                />
+                <input
+                  type="number"
+                  name="uniformDay"
+                  value={editedFees.uniformDay}
+                  onChange={handleEditInputChange}
+                  placeholder="Uniform Day"
+                  required
+                />
+                <input
+                  type="number"
+                  name="uniformBoarding"
+                  value={editedFees.uniformBoarding}
+                  onChange={handleEditInputChange}
+                  placeholder="Uniform Boarding"
+                  required
+                />
+                <button type="submit">Update Fees</button>
+                <button type="button" onClick={() => setEditIndex(-1)}>Cancel</button>
+              </form>
+            </div>
+          )}
         </div>
       </div>
     </div>

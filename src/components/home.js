@@ -1,43 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import './home.css';
 import AchievementImage from '../images/background3.jpg';
 import FacilitiesImage from '../images/background5.jpg';
 import CommunityImage from '../images/image7.jpg';
 
 const Home = () => {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    fetch('http://127.0.0.1:5000/api/v1/events/get_event', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json', // Add this line if needed
-      },
-    })
-      .then( response => {
-        if (response.ok) {
-          return response.json();
-        }
-        return response.json().then(errorData => {
-          throw new Error(errorData.message || 'An error occurred');
-        });
-      })
-      .then(data => {
-        // Check if data is an array and set state accordingly
-        if (Array.isArray(data)) {
-          setData(data);
-        } else {
-          console.error('Unexpected data format:', data);
-          setData([]); // Set an empty array if the format is incorrect
-        }
-      })
-      .catch(err => {
-        console.log('Fetch error:', err);
-        setData([]); // Set an empty array on fetch error
-      });
-  }, []);
-
   return (
     <div className="home-page">
       <section className="hero">
@@ -71,38 +39,8 @@ const Home = () => {
         </div>
       </section>
 
-      <div className="events-section">
-        <h2>Upcoming Events</h2>
-        <ul>
-          {data.length > 0 ? (
-            data.map((event, index) => {
-              const eventDate = new Date(event.date);
-              const day = eventDate.getDate();
-              const month = eventDate.toLocaleString('default', { month: 'short' });
-              const year = eventDate.getFullYear();
-
-              return (
-                <li key={index} className="event-item">
-                  <div className="event-date">
-                    <div className="month">{month}</div>
-                    <div className="day">{day}</div>
-                    <div className="year">{year}</div>
-                  </div>
-                  <div className="event-details">
-                    <strong>{event.name}</strong>
-                    <p>{event.description}</p>
-                    <p className="event-time">
-                      {eventDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                    </p>
-                    <p className="event-location">{event.location}</p>
-                  </div>
-                </li>
-              );
-            })
-          ) : (
-            <p>No events available</p>
-          )}
-        </ul>
+      <div className="events-link-section">
+        <Link to="/events" className="events-link">View Upcoming Events</Link>
       </div>
     </div>
   );

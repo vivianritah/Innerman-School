@@ -67,4 +67,11 @@
       margin: 20px auto;
     }
   }
+
+  .success-message {
+    color:#0056b3;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
   

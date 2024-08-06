@@ -18,6 +18,7 @@ import LoginButton from './components/loginButton';
 import Login from './components/loginPage';
 import Dashboard from './components/dashboard';
 import CreateAccountButton from './components/createAccountButton';
+import Events from './components/events';
 
 function App() {
   const isLoggedIn = !!localStorage.getItem('access_token'); // Check if user is logged in
@@ -60,6 +61,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/createAccount" element={<CreateAccount />} />
           <Route path="*" element={<NoPage />} />
+          <Route path="/events" element={<Events />} />
         </Routes>
       </div>
       {!isDashboardPage && <Footer />}
